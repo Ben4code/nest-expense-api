@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session'
+import { ValidationPipe } from '@nestjs/common';
 
 
 async function bootstrap() {
@@ -11,6 +12,11 @@ async function bootstrap() {
     resave: false,
     saveUninitialized: false
   }))
+  app.useGlobalPipes(new ValidationPipe({
+      transform: true,
+      whitelist: true
+    })
+  )
   
   await app.listen(3333);
 }

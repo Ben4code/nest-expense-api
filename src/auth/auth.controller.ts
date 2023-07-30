@@ -27,6 +27,5 @@ export class AuthController {
       id,
       email
     }
-    console.log(session)
   }
 }
