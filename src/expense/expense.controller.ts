@@ -7,18 +7,20 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { GetUserId } from 'src/auth/decorators';
 import { CreateExpenseDto, UpdateExpenseDto } from './dto';
+import { PaginateDto } from 'src/common/dto';
 
 @Controller('expense')
 export class ExpenseController {
   constructor(private expenseService: ExpenseService) {}
 
   @Get()
-  async getAllUserExpense(@GetUserId() userId: number) {
-    return this.expenseService.getAllUserExpense(userId);
+  async getAllUserExpense(@GetUserId() userId: number, @Query() pagination: PaginateDto ) {
+    return this.expenseService.getAllUserExpense(userId, pagination);
   }
 
   @Get(':id')
