@@ -22,6 +22,8 @@ model User {
   lastName String?
 
   expenses Expense[]
+  initialBalance Int @default(2000)
+  currentBalance Int @default(2000)
 
   @@map("user")
 }

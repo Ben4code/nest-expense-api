@@ -8,16 +8,20 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { GetUserId } from 'src/auth/decorators';
 import { CreateExpenseDto, UpdateExpenseDto } from './dto';
 import { PaginateDto } from 'src/common/dto';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('expense')
 export class ExpenseController {
   constructor(private expenseService: ExpenseService) {}
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(20)
   @Get()
   async getAllUserExpense(@GetUserId() userId: number, @Query() pagination: PaginateDto ) {
     return this.expenseService.getAllUserExpense(userId, pagination);
