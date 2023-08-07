@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 import { UserSession } from './types';
 import { PublicRoute } from './decorators';
+import { Role } from '@prisma/client';
 
 // @SetMetadata('PUBLIC_ROUTE', true)
 @PublicRoute()
@@ -12,20 +13,21 @@ export class AuthController {
 
   @Post('signup')
   async signUp(@Body() Dto: AuthDto, @Session() session: UserSession){
-    const {id, email} = await this.authService.signUp(Dto)
-    this.serializeSession(id, email, session)
+    const {id, email, role} = await this.authService.signUp(Dto)
+    this.serializeSession(id, email, role, session)
   }
 
   @Post('signin')
   async signIn(@Body() Dto: AuthDto, @Session() session: UserSession){
-    const {id, email} = await this.authService.signIn(Dto)
-    this.serializeSession(id, email, session)
+    const {id, email, role} = await this.authService.signIn(Dto)
+    this.serializeSession(id, email, role, session)
   }
   
-  private serializeSession(id: number, email: string, session: UserSession){
+  private serializeSession(id: number, email: string, role: Role, session: UserSession){
     session.user = {
       id,
-      email
+      email,
+      role
     }
   }
 }

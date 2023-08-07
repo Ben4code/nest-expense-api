@@ -37,7 +37,7 @@ export class ExpenseService {
         user: {
           select: {
             email: true,
-            firstNmae: true,
+            firstName: true,
             lastName: true
           }
         }

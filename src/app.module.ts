@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.moduel';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
-import { SessionGuard } from './auth/guards';
+import { AdminGuard, SessionGuard } from './auth/guards';
 import { ExpenseModule } from './expense/expense.module';
 import { RedisClientOptions } from 'redis'
 import * as redisStore from 'cache-manager-redis-store'
@@ -38,12 +38,17 @@ import { ScheduleModule } from '@nestjs/schedule'
     })
   ],
   controllers: [AppController],
+  //Route Guads
   providers: [
     AppService,
     {
       provide: APP_GUARD,
       useClass: SessionGuard,
     },
+    {
+      provide: APP_GUARD,
+      useClass: AdminGuard,
+    }
   ],
 })
 export class AppModule {}

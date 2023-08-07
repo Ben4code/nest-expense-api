@@ -35,6 +35,6 @@ export class SchedulerService {
       }).catch(error => this.logger.error(error))
     }
 
-    this.logger.warn(`computeBalances ran for ${users.length} users.`);
+    // this.logger.warn(`computeBalances ran for ${users.length} users.`);
   }
 } 

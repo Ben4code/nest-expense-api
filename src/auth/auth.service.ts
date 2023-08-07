@@ -26,7 +26,7 @@ export class AuthService {
       },
     });
 
-    return { id: user.id, email: user.email };
+    return { id: user.id, email: user.email, role: user.role };
   }
 
   async signIn(Dto: AuthDto) {
@@ -46,6 +46,6 @@ export class AuthService {
       throw new ForbiddenException('Credentials incorrect');
     }
 
-    return { id: userFound.id, email: userFound.email };
+    return { id: userFound.id, email: userFound.email, role: userFound.role };
   }
 }
