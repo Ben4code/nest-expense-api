@@ -5,4 +5,13 @@ export class SimpleService {
   testMe(value: number){
     return value + 1;
   }
+
+  testMeWithMock(value: number){
+    const randomValue = this.genRandom()
+    return randomValue + value;
+  }
+
+  genRandom(){
+    return Math.round(Math.random() * 100)
+  }
 }
